@@ -1,0 +1,29 @@
+name: Update Repository Teams
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to the branch you want to trigger the workflow on
+
+jobs:
+  update-teams:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Choose the Python version you need
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # You should have a requirements.txt file with your Python package dependencies
+
+      - name: Run Python Script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GK_PAT }}
+        run: python scripts/Github_teams_update.py  # Replace with the actual filename of your Python script
