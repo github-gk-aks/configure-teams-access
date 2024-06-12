@@ -1,4 +1,4 @@
-name: Update Repository Teams
+ame: Update Repository Teams
 
 on:
   push:
@@ -29,9 +29,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GK_PAT }}
         run: python "${{ github.workspace }}/source-repo/scripts/Github_teams_update.py"  # Replace with the actual filename of your Python script
-
-      - name: Upload Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: team-update-results
-          path: ${{ github.workspace }}/source-repo/data/team_update_results.csv
