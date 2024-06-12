@@ -4,6 +4,11 @@ import os
 import sys
 
 github_token = os.environ.get("GITHUB_TOKEN")
+github_workspace = os.getenv('GITHUB_WORKSPACE')
+repo_path = './source-repo'
+
+# Read and replace teams in the CODEOWNERS file
+excel_path = os.path.join(github_workspace, repo_path, "data/Input.xlsx")
 
 if github_token is None:
     raise ValueError("GitHub token not found. Please set the GITHUB_TOKEN environment variable.")
@@ -16,7 +21,7 @@ org_name = 'github-gk-aks'
 org = g.get_organization(org_name)
 
 # Load data from your Excel file into a Pandas DataFrame
-data = pd.read_excel("data/Input.xlsx")
+data = pd.read_excel(excel_path)
 
 # Create an empty dictionary to keep track of team permissions
 team_permissions = {}
