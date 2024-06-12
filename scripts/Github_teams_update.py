@@ -1,4 +1,4 @@
-from github import Github
+from github import Github,GithubException
 import pandas as pd
 import os
 import sys
@@ -79,9 +79,15 @@ for repo_name, teams in team_permissions.items():
     except GithubException as e:
         results.append({"repository": repo_name, "status": f"Failed: {str(e)}"})
 
-# Write the results to a CSV file
+# Construct the path to the results CSV file
+results_csv_path = os.path.join(github_workspace, repo_path, "data/team_update_results.csv")
+
+# Ensure the directory exists
+os.makedirs(os.path.dirname(results_csv_path), exist_ok=True)
+
+# Write the results to the CSV file
 results_df = pd.DataFrame(results)
-results_df.to_csv("data/team_update_results.csv", index=False)
+results_df.to_csv(results_csv_path, index=False)
 
 # Print the results
 for result in results:
