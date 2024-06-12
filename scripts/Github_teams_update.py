@@ -12,7 +12,7 @@ if github_token is None:
 g = Github(github_token)
 
 # Your organization or enterprise name
-org_name = sys.argv[1]
+org_name = 'github-gk-aks'
 org = g.get_organization(org_name)
 
 # Load data from your Excel file into a Pandas DataFrame
